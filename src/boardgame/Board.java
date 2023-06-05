@@ -8,7 +8,7 @@ public class Board {
 	
 	public Board(int rows, int columns) {
 		if (rows < 1 || columns <1) {
-			throw new boardExceptionn("Erro, criando tabuleiro, é necessario que haja pelo menos 1 linha e 1 coluna");
+			throw new boardException("Erro, criando tabuleiro, é necessario que haja pelo menos 1 linha e 1 coluna");
 		}
 		this.rows = rows;
 		this.columns = columns;
@@ -27,25 +27,43 @@ public class Board {
 	
 	public Piece piece(int row, int column) {
 		if (!positionExists(row, column)) {
-			throw new boardExceptionn("Posição não está no tabuleiro");
+			throw new boardException("Posição não está no tabuleiro");
 		}
 		return pieces[row][column];
 	}
 	
 	public Piece piece(Position position) {
 		if (!positionExists(position)) {
-			throw new boardExceptionn("Posição não existe");
+			throw new boardException("Posição não existe");
 		}
 		return pieces[position.getRow()][position.getColumn()];
 	}
 	
 	public void placePiece(Piece piece, Position position) {
 		if (thereIsaPiece(position)) {
-			throw new boardExceptionn("Já possui uma peça nesse tabuleiro na " + position);
+			throw new boardException("Já possui uma peça nesse tabuleiro na " + position);
 		}
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
 	}
+	
+	public Piece removePiece(Position position) {
+		if (!positionExists(position)) {
+			throw new boardException("Posição não existe");
+		}
+		if (piece(position) == null) {
+			return null;
+		}
+		Piece aux = piece(position);
+		aux.position = null;
+		pieces[position.getRow()][position.getColumn()] = null;
+		return aux;
+			
+	}
+	
+	
+	
+	
 	
 	private boolean positionExists (int row, int column) {
 		return row >= 0 && row < rows && column >=0 && column < columns;
@@ -57,11 +75,12 @@ public class Board {
 	
 	public boolean thereIsaPiece (Position position) {
 		if (!positionExists(position)) {
-			throw new boardExceptionn("Posição não existe");
+			throw new boardException("Posição não existe");
 		}
 		return piece(position) != null;
 	
 	}
+	
 	
 	
 	
