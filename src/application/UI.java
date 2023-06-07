@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import boardgame.ChessPiece;
+import chess.ChessMatch;
 import chess.ChessPosition;
 import chess.Color;
 
@@ -45,6 +46,13 @@ public class UI {
 		catch (RuntimeException e) {
 			throw new InputMismatchException("Erro lendo posição do xadrez, valores validos são do a1 ao h8");
 		}
+	}
+	
+	public static void printMatch(ChessMatch chessMatch) {
+		printBoard(chessMatch.getpieces());
+		System.out.println();
+		System.out.println("Vez: " + chessMatch.getTurn());
+		System.out.println("Esperando o player " + chessMatch.getCurrentPlayer());
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
