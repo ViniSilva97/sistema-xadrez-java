@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import boardgame.ChessPiece;
 import chess.ChessMatch;
+import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
 
@@ -57,6 +57,10 @@ public class UI {
 		printCapturedPieces(captured);
 		System.out.println("Vez: " + chessMatch.getTurn());
 		System.out.println("Esperando o player " + chessMatch.getCurrentPlayer());
+		
+		if(chessMatch.getCheck()) {
+			System.out.println("*****CHEQUE MATE!*****");
+		}
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
